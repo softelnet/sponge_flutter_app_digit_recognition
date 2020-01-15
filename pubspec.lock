@@ -199,7 +199,7 @@ packages:
     source: hosted
     version: "0.16.1"
   logging:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: logging
       url: "https://pub.dartlang.org"
@@ -240,6 +240,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   open_file:
     dependency: transitive
     description:
@@ -297,12 +304,12 @@ packages:
     source: hosted
     version: "1.0.1"
   provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.0"
+    version: "4.0.1"
   quiver:
     dependency: transitive
     description:
@@ -365,11 +372,11 @@ packages:
     source: hosted
     version: "1.5.5"
   sponge_client_dart:
-    dependency: transitive
+    dependency: "direct main"
     description:
-      name: sponge_client_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../sponge_client_dart"
+      relative: true
+    source: path
     version: "1.14.0+1"
   sponge_flutter_api:
     dependency: "direct main"
@@ -379,11 +386,11 @@ packages:
     source: path
     version: "0.1.0"
   sponge_grpc_client_dart:
-    dependency: transitive
+    dependency: "direct main"
     description:
-      name: sponge_grpc_client_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../sponge_grpc_client_dart"
+      relative: true
+    source: path
     version: "1.14.0"
   stack_trace:
     dependency: transitive
