@@ -62,7 +62,7 @@ class SongeDigitRecognitionApp extends StatelessWidget {
             title: APPLICATION_NAME,
           ),
           routes: {
-            DefaultRoutes.CONNECTIONS: (context) => ConnectionsWidget(),
+            DefaultRoutes.CONNECTIONS: (context) => ConnectionsPage(),
           },
           debugShowCheckedModeBanner: false,
         ),
