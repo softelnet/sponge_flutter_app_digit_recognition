@@ -39,7 +39,7 @@ class _DigitsPageState extends State<DigitsPage>
   DigitsPresenter _presenter;
 
   DrawingBinaryValue _drawingBinary;
-  final _controller = PainterController()..isAntiAlias = true;
+  PainterController _controller;
 
   Animation<double> _animation;
   AnimationController _animationController;
@@ -74,6 +74,8 @@ class _DigitsPageState extends State<DigitsPage>
       ..initBloc();
 
     service.bindMainBuildContext(context);
+
+    _controller ??= PainterController();
 
     return FutureBuilder<ActionData>(
       future: _presenter.getActionData(),
@@ -163,7 +165,7 @@ class _DigitsPageState extends State<DigitsPage>
     double minSize = [size.height, size.width].reduce(min);
 
     var themeData = Theme.of(context);
-    final TextStyle resultextStyle = themeData.textTheme.display3
+    final TextStyle resultTextStyle = themeData.textTheme.display3
         .apply(fontWeightDelta: 2)
         .apply(color: Colors.white);
 
@@ -178,7 +180,7 @@ class _DigitsPageState extends State<DigitsPage>
             child: PainterPanel(
               controller: _controller,
               drawingBinary: _drawingBinary,
-              onStrokeEnd: () async => _recognizeDigit(),
+              onStrokeEnd: _recognizeDigit,
             ),
           ),
         ),
@@ -196,7 +198,7 @@ class _DigitsPageState extends State<DigitsPage>
                 foregroundColor: Colors.white,
                 child: Text(
                   _presenter.digitText,
-                  style: resultextStyle,
+                  style: resultTextStyle,
                 ),
               ),
               onTap: _clear,
@@ -235,17 +237,17 @@ class _DigitsPageState extends State<DigitsPage>
     );
   }
 
-  Future _recognizeDigit() async {
+  Future<void> _recognizeDigit() async {
     if (_drawingBinary == null) {
       return;
     }
 
     // TODO Refactor _drawingBinary.
-    _drawingBinary
-      ..displaySize = convertToSize(_controller.size)
-      ..strokes = convertToStrokes(_controller.strokes);
-
-    _presenter.recognizeDigit(_drawingBinary);
+    _presenter.recognizeDigit(DrawingBinaryValue.copyWith(
+      _drawingBinary,
+      displaySize: convertToSize(_controller.size),
+      strokes: convertToStrokes(_controller.strokes),
+    ));
   }
 
   void _clear() {
@@ -267,6 +269,7 @@ class _DigitsPageState extends State<DigitsPage>
       Padding(
         padding: const EdgeInsets.only(top: 5.0),
         child: RichText(
+          textAlign: TextAlign.justify,
           text: TextSpan(
             children: <TextSpan>[
               TextSpan(

@@ -28,6 +28,7 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
   await showDefaultAboutAppDialog(
     context,
     contents: RichText(
+      textAlign: TextAlign.justify,
       text: TextSpan(
         children: <TextSpan>[
           TextSpan(
@@ -47,7 +48,7 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
             text:
                 '\n\nThe aim of this application is to show how to build a mobile application with Flutter'
                 ' that use Sponge as a backend. It is not designed to provide any state of the art recognition model.'
-                '\n\nThe actual recognition is performed on the server so you may experience visible lags.',
+                ' The actual recognition is performed on the server so you may experience visible lags.',
           ),
           TextSpan(
             style: standardTextStyle,
@@ -61,7 +62,7 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
           TextSpan(
             style: standardTextStyle,
             text:
-                ' project home page.\n\nTo see the source code of this app, please visit its ',
+                ' project home page. To see the source code of this app, please visit its ',
           ),
           LinkTextSpan(
             style: linkStyle,
