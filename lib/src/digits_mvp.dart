@@ -17,6 +17,10 @@ import 'package:sponge_client_dart/sponge_client_dart.dart';
 import 'package:sponge_flutter_api/sponge_flutter_api.dart';
 
 class DigitsViewModel extends BaseViewModel {
+  ActionMeta actionMeta;
+
+  DrawingBinaryValue value;
+
   /// Not `null` only if the action call hasn't thrown an error.
   ActionCallResultInfo resultInfo;
 }
@@ -28,10 +32,11 @@ class DigitsPresenter extends BasePresenter<DigitsViewModel, DigitsView> {
       : super(viewModel, view);
 
   static final Logger _logger = Logger('DigitsPresenter');
+
   static const ACTION_NAME = 'DigitsPredict';
 
-  ActionCallBloc _bloc;
-  ActionCallBloc get bloc => _bloc;
+  ActionCallBloc _actionCallBloc;
+  ActionCallBloc get actionCallBloc => _actionCallBloc;
 
   ActionCallState _state;
   ActionCallState get state => _state;
@@ -52,31 +57,50 @@ class DigitsPresenter extends BasePresenter<DigitsViewModel, DigitsView> {
     }
   }
 
+  DrawingBinaryValue get value => viewModel.value;
+
+  void initValue() =>
+      viewModel.value ??= DrawingBinaryValue(viewModel.actionMeta.args[0]);
+
+  ForwardingBloc<SpongeConnectionState> get connectionBloc =>
+      service.connectionBloc;
+
   Future<ActionData> getActionData() async =>
       service.spongeService?.getAction(ACTION_NAME);
 
-  void initBloc() {
-    _bloc ??=
+  void initActionCallBloc() {
+    _actionCallBloc ??=
         ActionCallBloc(service.spongeService, ACTION_NAME, saveState: false);
   }
 
-  void dispose() => _bloc?.dispose();
+  void dispose() => _actionCallBloc?.dispose();
 
   bool get connected => service.connected;
 
   bool get hasConnections => service.connectionsConfiguration.hasConnections;
 
   void recognizeDigit(DrawingBinaryValue value) =>
-      _bloc.onActionCall.add([value]);
+      _actionCallBloc.onActionCall.add([value]);
 
   ActionCallResultInfo get resultInfo => viewModel.resultInfo;
   set resultInfo(ActionCallResultInfo value) => viewModel.resultInfo = value;
 
-  void clearDigit() => _bloc.onActionCall.add(null);
+  void clearDigit() {
+    viewModel.value.clear();
+    _actionCallBloc.onActionCall.add(null);
+  }
 
   String get digitText => resultInfo != null
       ? (resultInfo.result != null ? resultInfo.result.toString() : '?')
       : ' ';
 
   bool get recognizing => state is ActionCallStateCalling;
+
+  void reset() {
+    viewModel.actionMeta = null;
+    viewModel.value = null;
+    viewModel.resultInfo = null;
+
+    _actionCallBloc = null;
+  }
 }

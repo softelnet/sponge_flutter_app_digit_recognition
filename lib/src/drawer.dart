@@ -28,11 +28,12 @@ class DigitsDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DefaultDrawerHeader(applicationName: APPLICATION_TITLE_SHORT),
+          DefaultDrawerHeader(applicationName: APPLICATION_NAME_SHORT),
           ListTile(
             leading: Icon(Icons.cloud, color: iconColor),
             title: Text('Connections'),
-            onTap: () async => showChildScreen(context, Routes.CONNECTIONS),
+            onTap: () async =>
+                showChildScreen(context, DefaultRoutes.CONNECTIONS),
           ),
           Divider(),
           ListTile(

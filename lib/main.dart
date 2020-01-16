@@ -18,6 +18,7 @@ import 'package:sponge_flutter_api/sponge_flutter_api.dart';
 import 'package:sponge_flutter_app_digit_recognition/application_constants.dart';
 import 'package:sponge_flutter_app_digit_recognition/logger_configuration.dart';
 import 'package:sponge_flutter_app_digit_recognition/src/digits_widget.dart';
+import 'package:sponge_flutter_app_digit_recognition/src/drawer.dart';
 
 void main() async {
   configLogger();
@@ -47,23 +48,24 @@ class SongeDigitRecognitionApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ApplicationProvider(
       service: service,
-      child: MaterialApp(
-        title: APPLICATION_TITLE,
-        theme: ThemeData(
-          primarySwatch: Colors.teal,
-          brightness: Brightness.dark,
+      child: Provider<SpongeWidgetsFactory>(
+        create: (_) => SpongeWidgetsFactory(
+          onCreateDrawer: (_) => DigitsDrawer(),
         ),
-        home: Provider<ApplicationService>(
-          create: (_) => service,
-          //lazy: false,
-          child: DigitsPage(
-            title: APPLICATION_TITLE,
+        child: MaterialApp(
+          title: APPLICATION_NAME,
+          theme: ThemeData(
+            primarySwatch: Colors.teal,
+            brightness: Brightness.dark,
           ),
+          home: DigitsPage(
+            title: APPLICATION_NAME,
+          ),
+          routes: {
+            DefaultRoutes.CONNECTIONS: (context) => ConnectionsWidget(),
+          },
+          debugShowCheckedModeBanner: false,
         ),
-        routes: {
-          Routes.CONNECTIONS: (context) => ConnectionsWidget(),
-        },
-        debugShowCheckedModeBanner: false,
       ),
     );
   }

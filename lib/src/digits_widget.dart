@@ -38,7 +38,6 @@ class _DigitsPageState extends State<DigitsPage>
     implements DigitsView {
   DigitsPresenter _presenter;
 
-  DrawingBinaryValue _drawingBinary;
   PainterController _controller;
 
   Animation<double> _animation;
@@ -69,73 +68,111 @@ class _DigitsPageState extends State<DigitsPage>
   Widget build(BuildContext context) {
     var service = ApplicationProvider.of(context).service;
 
-    _presenter
-      ..setService(service)
-      ..initBloc();
+    _presenter.setService(service);
 
-    service.bindMainBuildContext(context);
+    return StreamBuilder<SpongeConnectionState>(
+      stream: _presenter.connectionBloc,
+      initialData: SpongeConnectionStateConnecting(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var connectionState = snapshot.data;
 
-    _controller ??= PainterController();
+          if (connectionState is SpongeConnectionStateNotConnected) {
+            return _buildScaffold(context,
+                child: ConnectionNotInitializedWidget(
+                  hasConnections: _presenter.hasConnections,
+                ));
+          } else if (connectionState is SpongeConnectionStateConnecting) {
+            _presenter.reset();
+            _controller.clear();
 
-    return FutureBuilder<ActionData>(
-      future: _presenter.getActionData(),
-      builder: (BuildContext context, AsyncSnapshot<ActionData> snapshot) =>
-          snapshot.hasData
-              ? _buildRecognitionScaffold(context, snapshot.data.actionMeta)
-              : _buildFailureScaffold(context, snapshot),
+            return _buildScaffold(context, child: CircularProgressIndicator());
+          } else if (connectionState is SpongeConnectionStateConnected) {
+            _presenter.initActionCallBloc();
+
+            return FutureBuilder<ActionData>(
+              future: _presenter.getActionData(),
+              builder: (context, snapshot) => snapshot.hasData
+                  ? _buildRecognitionScaffold(context, snapshot.data.actionMeta)
+                  : _buildActionFailureScaffold(context, snapshot),
+            );
+          } else if (connectionState is SpongeConnectionStateError) {
+            return _buildScaffold(
+              context,
+              child: ErrorPanelWidget(error: connectionState.error),
+            );
+          }
+        }
+
+        return _buildScaffold(
+          context,
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 
   Widget _buildRecognitionScaffold(
       BuildContext context, ActionMeta actionMeta) {
+    _controller ??= PainterController();
+
     return StreamBuilder<ActionCallState>(
-        stream: _presenter.bloc.state,
+        stream: _presenter.actionCallBloc.state,
         initialData: ActionCallStateInitialize(),
         builder:
             (BuildContext context, AsyncSnapshot<ActionCallState> snapshot) {
           _presenter.state = snapshot.data;
 
           if (actionMeta != null) {
-            _drawingBinary ??= DrawingBinaryValue(actionMeta.args[0]);
+            _presenter.viewModel.actionMeta = actionMeta;
+            _presenter.initValue();
           }
 
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(widget.title),
-              actions: _buildAppBarActions(),
-              bottom: _buildAppBarBottom(
-                  backgroundColor: (_presenter.state is ActionCallStateError)
-                      ? Colors.red
-                      : (_presenter.recognizing
-                          ? getSecondaryColor(context)
-                          : Theme.of(context).dialogBackgroundColor),
-                  onTap: (_presenter.state is ActionCallStateError)
-                      ? () => showErrorDialog(context,
-                          '${(_presenter.state as ActionCallStateError).error}')
-                      : null),
-            ),
-            body: SafeArea(
-              child: _buildMainWidget(context),
-            ),
-            drawer: DigitsDrawer(),
+          return _buildScaffold(
+            context,
+            bottom: _buildAppBarBottom(
+                backgroundColor: (_presenter.state is ActionCallStateError)
+                    ? Colors.red
+                    : (_presenter.recognizing
+                        ? getSecondaryColor(context)
+                        : Theme.of(context).dialogBackgroundColor),
+                onTap: (_presenter.state is ActionCallStateError)
+                    ? () => showErrorDialog(context,
+                        '${(_presenter.state as ActionCallStateError).error}')
+                    : null),
+            child: _buildMainWidget(context),
           );
         });
   }
 
-  Widget _buildFailureScaffold(
+  Widget _buildActionFailureScaffold(
       BuildContext context, AsyncSnapshot<ActionData> snapshot) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: _buildAppBarActions(),
-      ),
-      body: Center(
+    return _buildScaffold(
+      context,
+      child: Center(
         child: snapshot.hasError
             ? ErrorPanelWidget(error: snapshot.error)
             : (_presenter.connected
                 ? CircularProgressIndicator()
                 : ConnectionNotInitializedWidget(
                     hasConnections: _presenter.hasConnections)),
+      ),
+    );
+  }
+
+  Widget _buildScaffold(
+    BuildContext context, {
+    @required Widget child,
+    PreferredSizeWidget bottom,
+  }) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        actions: _buildAppBarActions(),
+        bottom: bottom,
+      ),
+      body: SafeArea(
+        child: Center(child: child),
       ),
       drawer: DigitsDrawer(),
     );
@@ -171,7 +208,7 @@ class _DigitsPageState extends State<DigitsPage>
 
     var elements = <Widget>[
       AspectRatio(
-        aspectRatio: _drawingBinary.aspectRatio,
+        aspectRatio: _presenter.value.aspectRatio,
         child: ConstrainedBox(
           constraints: BoxConstraints.tightFor(width: minSize, height: minSize),
           child: Card(
@@ -179,7 +216,7 @@ class _DigitsPageState extends State<DigitsPage>
             margin: EdgeInsets.all(10.0),
             child: PainterPanel(
               controller: _controller,
-              drawingBinary: _drawingBinary,
+              drawingBinary: _presenter.value,
               onStrokeEnd: _recognizeDigit,
             ),
           ),
@@ -238,13 +275,13 @@ class _DigitsPageState extends State<DigitsPage>
   }
 
   Future<void> _recognizeDigit() async {
-    if (_drawingBinary == null) {
+    if (_presenter.value == null) {
       return;
     }
 
     // TODO Refactor _drawingBinary.
     _presenter.recognizeDigit(DrawingBinaryValue.copyWith(
-      _drawingBinary,
+      _presenter.value,
       displaySize: convertToSize(_controller.size),
       strokes: convertToStrokes(_controller.strokes),
     ));
@@ -252,7 +289,6 @@ class _DigitsPageState extends State<DigitsPage>
 
   void _clear() {
     _controller.clear();
-    _drawingBinary.clear();
     _presenter.clearDigit();
   }
 
