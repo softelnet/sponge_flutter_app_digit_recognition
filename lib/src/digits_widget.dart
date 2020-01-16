@@ -71,7 +71,7 @@ class _DigitsPageState extends State<DigitsPage>
     _presenter.setService(service);
 
     return StreamBuilder<SpongeConnectionState>(
-      stream: _presenter.connectionBloc,
+      stream: _presenter.connectionBlocStream,
       initialData: SpongeConnectionStateConnecting(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -83,13 +83,10 @@ class _DigitsPageState extends State<DigitsPage>
                   hasConnections: _presenter.hasConnections,
                 ));
           } else if (connectionState is SpongeConnectionStateConnecting) {
-            _presenter.reset();
-            _controller.clear();
+            _controller?.clear();
 
             return _buildScaffold(context, child: CircularProgressIndicator());
           } else if (connectionState is SpongeConnectionStateConnected) {
-            _presenter.initActionCallBloc();
-
             return FutureBuilder<ActionData>(
               future: _presenter.getActionData(),
               builder: (context, snapshot) => snapshot.hasData

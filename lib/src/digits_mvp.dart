@@ -62,13 +62,21 @@ class DigitsPresenter extends BasePresenter<DigitsViewModel, DigitsView> {
   void initValue() =>
       viewModel.value ??= DrawingBinaryValue(viewModel.actionMeta.args[0]);
 
-  ForwardingBloc<SpongeConnectionState> get connectionBloc =>
-      service.connectionBloc;
+  Stream<SpongeConnectionState> get connectionBlocStream =>
+      service.connectionBloc.map((state) {
+        if (state is SpongeConnectionStateConnecting) {
+          reset();
+        } else if (state is SpongeConnectionStateConnected) {
+          _initActionCallBloc();
+        }
+
+        return state;
+      });
 
   Future<ActionData> getActionData() async =>
       service.spongeService?.getAction(ACTION_NAME);
 
-  void initActionCallBloc() {
+  void _initActionCallBloc() {
     _actionCallBloc ??=
         ActionCallBloc(service.spongeService, ACTION_NAME, saveState: false);
   }
