@@ -14,6 +14,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:sponge_flutter_api/sponge_flutter_api.dart';
 import 'package:sponge_flutter_app_digit_recognition/application_constants.dart';
 import 'package:sponge_flutter_app_digit_recognition/logger_configuration.dart';
@@ -33,9 +34,12 @@ void main() async {
 Future<ApplicationService> _createApplicationService() async {
   var service = FlutterApplicationService();
   await service.init();
+
   if (service.activeConnection?.name == null) {
-    await service.setActiveConnection(ApplicationConstants.DEMO_SERVICE_NAME);
+    unawaited(
+        service.setActiveConnection(ApplicationConstants.DEMO_SERVICE_NAME));
   }
+
   return service;
 }
 

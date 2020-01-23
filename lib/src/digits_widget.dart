@@ -33,29 +33,16 @@ class DigitsPage extends StatefulWidget {
   createState() => _DigitsPageState();
 }
 
-class _DigitsPageState extends State<DigitsPage>
-    with TickerProviderStateMixin
-    implements DigitsView {
+class _DigitsPageState extends State<DigitsPage> implements DigitsView {
   DigitsPresenter _presenter;
 
   PainterController _controller;
-
-  Animation<double> _animation;
-  AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
 
     _presenter = DigitsPresenter(DigitsViewModel(), this);
-
-    _animationController = AnimationController(
-        vsync: this,
-        duration: Duration(seconds: 3),
-        lowerBound: 0.8,
-        upperBound: 1.0);
-    _animation =
-        CurvedAnimation(parent: _animationController, curve: Curves.linear);
   }
 
   @override
@@ -221,22 +208,19 @@ class _DigitsPageState extends State<DigitsPage>
       ),
       Expanded(
         child: Center(
-          child: ScaleTransition(
-            scale: _animation,
-            child: GestureDetector(
-              child: CircleAvatar(
-                radius: 50.0,
-                backgroundColor: isDarkTheme(context)
-                    ? themeData.buttonColor
-                    : themeData.accentColor,
-                foregroundColor: Colors.white,
-                child: Text(
-                  _presenter.digitText,
-                  style: resultTextStyle,
-                ),
+          child: InkResponse(
+            child: CircleAvatar(
+              radius: 45,
+              backgroundColor: isDarkTheme(context)
+                  ? themeData.buttonColor
+                  : themeData.accentColor,
+              foregroundColor: Colors.white,
+              child: Text(
+                _presenter.digitText,
+                style: resultTextStyle,
               ),
-              onTap: _clear,
             ),
+            onTap: _clear,
           ),
         ),
       ),
@@ -261,7 +245,7 @@ class _DigitsPageState extends State<DigitsPage>
   }) {
     return PreferredSize(
       preferredSize: const Size.fromHeight(2.0),
-      child: GestureDetector(
+      child: InkResponse(
         onTap: onTap,
         child: LinearProgressIndicator(
           value: 0.0,
