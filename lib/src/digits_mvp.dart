@@ -77,25 +77,28 @@ class DigitsPresenter extends BasePresenter<DigitsViewModel, DigitsView> {
       service.spongeService?.getAction(ACTION_NAME);
 
   void _initActionCallBloc() {
-    _actionCallBloc ??=
-        ActionCallBloc(service.spongeService, ACTION_NAME, saveState: false);
+    _actionCallBloc ??= ActionCallBloc(
+      spongeService: service.spongeService,
+      actionName: ACTION_NAME,
+      saveState: false,
+    );
   }
 
-  void dispose() => _actionCallBloc?.dispose();
+  void dispose() => _actionCallBloc?.close();
 
   bool get connected => service.connected;
 
   bool get hasConnections => service.connectionsConfiguration.hasConnections;
 
   void recognizeDigit(DrawingBinaryValue value) =>
-      _actionCallBloc.onActionCall.add([value]);
+      _actionCallBloc.add([value]);
 
   ActionCallResultInfo get resultInfo => viewModel.resultInfo;
   set resultInfo(ActionCallResultInfo value) => viewModel.resultInfo = value;
 
   void clearDigit() {
     viewModel.value.clear();
-    _actionCallBloc.onActionCall.add(null);
+    _actionCallBloc.clear();
   }
 
   String get digitText => resultInfo != null

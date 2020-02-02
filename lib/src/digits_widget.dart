@@ -16,6 +16,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sponge_client_dart/sponge_client_dart.dart';
 import 'package:sponge_flutter_api/sponge_flutter_api.dart';
 import 'package:sponge_flutter_app_digit_recognition/src/digits_mvp.dart';
@@ -100,12 +101,10 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
       BuildContext context, ActionMeta actionMeta) {
     _controller ??= PainterController();
 
-    return StreamBuilder<ActionCallState>(
-        stream: _presenter.actionCallBloc.state,
-        initialData: ActionCallStateInitialize(),
-        builder:
-            (BuildContext context, AsyncSnapshot<ActionCallState> snapshot) {
-          _presenter.state = snapshot.data;
+    return BlocBuilder<ActionCallBloc, ActionCallState>(
+        bloc: _presenter.actionCallBloc,
+        builder: (BuildContext context, ActionCallState state) {
+          _presenter.state = state;
 
           if (actionMeta != null) {
             _presenter.viewModel.actionMeta = actionMeta;
