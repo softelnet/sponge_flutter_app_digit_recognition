@@ -24,14 +24,10 @@ import 'package:sponge_flutter_app_digit_recognition/src/drawer.dart';
 void main() async {
   configLogger();
 
-  WidgetsFlutterBinding.ensureInitialized();
-
-  var service = await _createApplicationService();
-
-  runApp(SongeDigitRecognitionApp(service));
+  runApp(SongeDigitRecognitionApp());
 }
 
-Future<ApplicationService> _createApplicationService() async {
+Future<FlutterApplicationService> _createApplicationService() async {
   var service = FlutterApplicationService();
   await service.init();
 
@@ -44,33 +40,59 @@ Future<ApplicationService> _createApplicationService() async {
 }
 
 class SongeDigitRecognitionApp extends StatelessWidget {
-  SongeDigitRecognitionApp(this.service);
-
-  final ApplicationService service;
+  SongeDigitRecognitionApp();
 
   @override
   Widget build(BuildContext context) {
-    return ApplicationProvider(
-      service: service,
-      child: Provider<SpongeWidgetsFactory>(
-        create: (_) => SpongeWidgetsFactory(
-          onCreateDrawer: (_) => DigitsDrawer(),
-        ),
-        child: MaterialApp(
-          title: APPLICATION_NAME,
-          theme: ThemeData(
-            primarySwatch: Colors.teal,
-            brightness: Brightness.dark,
-          ),
-          home: DigitsPage(
-            title: APPLICATION_NAME,
-          ),
-          routes: {
-            DefaultRoutes.CONNECTIONS: (context) => ConnectionsPage(),
-          },
-          debugShowCheckedModeBanner: false,
-        ),
+    return FutureBuilder<FlutterApplicationService>(
+      future: _createApplicationService(),
+      builder: (BuildContext context,
+          AsyncSnapshot<FlutterApplicationService> snapshot) {
+        if (snapshot.hasData) {
+          return ApplicationProvider(
+            service: snapshot.data,
+            child: Provider<SpongeWidgetsFactory>(
+              create: (_) => SpongeWidgetsFactory(
+                onCreateDrawer: (_) => DigitsDrawer(),
+              ),
+              child: _buildApp(
+                child: DigitsPage(
+                  title: APPLICATION_NAME,
+                ),
+              ),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return _buildApp(
+            child: Center(
+              child: ErrorPanelWidget(
+                error: snapshot.error,
+              ),
+            ),
+          );
+        } else {
+          return _buildApp(
+            child: Container(
+              color: Colors.teal,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _buildApp({@required Widget child}) {
+    return MaterialApp(
+      title: APPLICATION_NAME,
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+        brightness: Brightness.dark,
       ),
+      home: child,
+      routes: {
+        DefaultRoutes.CONNECTIONS: (context) => ConnectionsPage(),
+      },
+      debugShowCheckedModeBanner: false,
     );
   }
 }

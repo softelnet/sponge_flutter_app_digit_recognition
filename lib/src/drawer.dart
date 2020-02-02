@@ -39,7 +39,10 @@ class DigitsDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.info, color: iconColor),
             title: Text('About'),
-            onTap: () async => await showAboutDigitsAppDialog(context),
+            onTap: () async {
+              Navigator.pop(context);
+              await showAboutDigitsAppDialog(context);
+            },
           ),
         ],
       ),
