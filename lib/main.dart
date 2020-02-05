@@ -65,8 +65,9 @@ class SongeDigitRecognitionApp extends StatelessWidget {
         } else if (snapshot.hasError) {
           return _buildApp(
             child: Center(
-              child: ErrorPanelWidget(
-                error: snapshot.error,
+              child: NotificationPanelWidget(
+                message: snapshot.error,
+                type: NotificationPanelType.error,
               ),
             ),
           );
