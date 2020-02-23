@@ -193,7 +193,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
     double minSize = [size.height, size.width].reduce(min);
 
     var themeData = Theme.of(context);
-    final TextStyle resultTextStyle = themeData.textTheme.display3
+    final TextStyle resultTextStyle = themeData.textTheme.headline2
         .apply(fontWeightDelta: 2)
         .apply(color: Colors.white);
 
@@ -282,7 +282,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
 
   _showInfo() async {
     final ThemeData themeData = Theme.of(context);
-    final TextStyle accentedTextStyle = themeData.textTheme.body2.apply(
+    final TextStyle accentedTextStyle = themeData.textTheme.bodyText1.apply(
         fontSizeFactor: 1.2,
         fontWeightDelta: 2,
         color: getSecondaryColor(context));
