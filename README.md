@@ -1,5 +1,5 @@
 # sponge_flutter_app_digit_recognition
 
-A Sponge Flutter demo app - Handwritten Digit Recognition.
+Handwritten Digit Recognition - A Sponge Flutter demo app.
 
 For more information on Sponge see https://sponge.openksavi.org.

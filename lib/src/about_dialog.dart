@@ -35,7 +35,7 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
             style: headerTextStyle,
             text:
                 '\n\nThis is a showcase of a customized Sponge client application in Flutter that calls a Sponge'
-                ' action that recognizes handwritten digits.',
+                ' action that recognizes handwritten digits. The app is released under the open-source Apache 2.0 license.',
           ),
           TextSpan(
             style: standardTextStyle,
@@ -62,17 +62,7 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
           TextSpan(
             style: standardTextStyle,
             text:
-                ' project home page. To see the source code of this app, please visit its ',
-          ),
-          LinkTextSpan(
-            style: linkStyle,
-            url:
-                'https://github.com/softelnet/sponge_flutter_app_digit_recognition',
-            text: 'GitHub repo',
-          ),
-          TextSpan(
-            style: standardTextStyle,
-            text: '.',
+                ' project home page.',
           ),
         ],
       ),

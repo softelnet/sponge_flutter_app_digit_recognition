@@ -282,10 +282,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
 
   _showInfo() async {
     final ThemeData themeData = Theme.of(context);
-    final TextStyle accentedTextStyle = themeData.textTheme.bodyText1.apply(
-        fontSizeFactor: 1.2,
-        fontWeightDelta: 2,
-        color: getSecondaryColor(context));
+    final TextStyle textStyle = themeData.textTheme.bodyText1;
 
     await showModalDialog(
       context,
@@ -297,9 +294,10 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
           text: TextSpan(
             children: <TextSpan>[
               TextSpan(
-                style: accentedTextStyle,
+                style: textStyle,
                 text:
-                    'Draw one large digit in the centre of the black rectangle.'
+                    'Draw one large digit in the centre of the black square and wait for the recognition.'
+                    '\n\nThe recognized digit will be displayed in the green circle.'
                     '\n\nTouch the circle to clear the drawing.',
               ),
             ],
