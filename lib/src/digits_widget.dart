@@ -85,7 +85,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
             return _buildScaffold(
               context,
               child: NotificationPanelWidget(
-                message: connectionState.error,
+                notification: connectionState.error,
                 type: NotificationPanelType.error,
               ),
             );
@@ -138,7 +138,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
       child: Center(
         child: snapshot.hasError
             ? NotificationPanelWidget(
-                message: snapshot.error,
+                notification: snapshot.error,
                 type: NotificationPanelType.error,
               )
             : (_presenter.connected
@@ -171,7 +171,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
     if (_presenter.connected) {
       if (_presenter.state is ActionCallStateNoAction) {
         return NotificationPanelWidget(
-          message:
+          notification:
               'The Sponge service you are connected to has no support for digit recognition',
           type: NotificationPanelType.error,
         );
