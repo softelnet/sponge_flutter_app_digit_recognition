@@ -33,7 +33,7 @@ Future<FlutterApplicationService> _createApplicationService() async {
 
   if (service.activeConnection?.name == null) {
     unawaited(
-        service.setActiveConnection(ApplicationConstants.DEMO_SERVICE_NAME));
+        service.setActiveConnection(SpongeServiceConstants.DEMO_SERVICE_NAME));
   }
 
   return service;
@@ -51,8 +51,8 @@ class SongeDigitRecognitionApp extends StatelessWidget {
         if (snapshot.hasData) {
           return ApplicationProvider(
             service: snapshot.data,
-            child: Provider<SpongeWidgetsFactory>(
-              create: (_) => SpongeWidgetsFactory(
+            child: Provider<SpongeGuiFactory>(
+              create: (_) => SpongeGuiFactory(
                 onCreateDrawer: (_) => DigitsDrawer(),
               ),
               child: _buildApp(
