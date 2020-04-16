@@ -61,8 +61,7 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
           ),
           TextSpan(
             style: standardTextStyle,
-            text:
-                ' project home page.',
+            text: ' project home page.',
           ),
         ],
       ),
