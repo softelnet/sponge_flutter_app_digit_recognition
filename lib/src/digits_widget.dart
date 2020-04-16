@@ -267,7 +267,6 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
       return;
     }
 
-    // TODO Refactor _drawingBinary.
     _presenter.recognizeDigit(DrawingBinaryValue.copyWith(
       _presenter.value,
       displaySize: convertToSize(_controller.size),
