@@ -40,15 +40,8 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
   PainterController _controller;
 
   @override
-  void initState() {
-    super.initState();
-
-    _presenter = DigitsPresenter(DigitsViewModel(), this);
-  }
-
-  @override
   void dispose() {
-    _presenter.dispose();
+    _presenter?.dispose();
     super.dispose();
   }
 
@@ -56,7 +49,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
   Widget build(BuildContext context) {
     var service = ApplicationProvider.of(context).service;
 
-    _presenter.setService(service);
+    _presenter ??= DigitsPresenter(service, DigitsViewModel(), this);
 
     return StreamBuilder<SpongeConnectionState>(
       stream: _presenter.connectionBlocStream,

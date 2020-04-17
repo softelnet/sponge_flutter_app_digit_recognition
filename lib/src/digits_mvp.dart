@@ -28,8 +28,9 @@ class DigitsViewModel extends BaseViewModel {
 abstract class DigitsView extends BaseView {}
 
 class DigitsPresenter extends BasePresenter<DigitsViewModel, DigitsView> {
-  DigitsPresenter(DigitsViewModel viewModel, DigitsView view)
-      : super(viewModel, view);
+  DigitsPresenter(
+      ApplicationService service, DigitsViewModel viewModel, DigitsView view)
+      : super(service, viewModel, view);
 
   static final Logger _logger = Logger('DigitsPresenter');
 
@@ -90,8 +91,7 @@ class DigitsPresenter extends BasePresenter<DigitsViewModel, DigitsView> {
 
   bool get hasConnections => service.connectionsConfiguration.hasConnections;
 
-  void recognizeDigit(DrawingBinaryValue value) =>
-      _actionCallBloc.add([value]);
+  void recognizeDigit(DrawingBinaryValue value) => _actionCallBloc.add([value]);
 
   ActionCallResultInfo get resultInfo => viewModel.resultInfo;
   set resultInfo(ActionCallResultInfo value) => viewModel.resultInfo = value;
