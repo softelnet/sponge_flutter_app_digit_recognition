@@ -18,12 +18,12 @@ import 'package:sponge_flutter_api/sponge_flutter_api.dart';
 Future<void> showAboutDigitsAppDialog(BuildContext context) async {
   final ThemeData themeData = Theme.of(context);
   final TextStyle headerTextStyle =
-      themeData.textTheme.bodyText1.apply(fontWeightDelta: 2);
-  final TextStyle standardTextStyle = themeData.textTheme.bodyText1;
+      themeData.textTheme.body1.apply(fontWeightDelta: 2);
+  final TextStyle standardTextStyle = themeData.textTheme.body1;
   final TextStyle noteTextStyle =
-      themeData.textTheme.bodyText1.apply(color: getSecondaryColor(context));
+      themeData.textTheme.body1.apply(color: getSecondaryColor(context));
   final TextStyle linkStyle =
-      themeData.textTheme.bodyText1.copyWith(color: themeData.accentColor);
+      themeData.textTheme.body1.copyWith(color: themeData.accentColor);
 
   await showDefaultAboutAppDialog(
     context,
