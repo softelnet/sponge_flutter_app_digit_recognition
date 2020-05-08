@@ -186,7 +186,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
     double minSize = [size.height, size.width].reduce(min);
 
     var themeData = Theme.of(context);
-    final TextStyle resultTextStyle = themeData.textTheme.display3
+    final TextStyle resultTextStyle = themeData.textTheme.headline2
         .apply(fontWeightDelta: 2)
         .apply(color: Colors.white);
 
@@ -274,7 +274,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
 
   _showInfo() async {
     final ThemeData themeData = Theme.of(context);
-    final TextStyle textStyle = themeData.textTheme.body1;
+    final TextStyle textStyle = themeData.textTheme.bodyText2;
 
     await showModalDialog(
       context,
