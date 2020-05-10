@@ -197,7 +197,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
           constraints: BoxConstraints.tightFor(width: minSize, height: minSize),
           child: Card(
             elevation: 10.0,
-            margin: EdgeInsets.all(10.0),
+            margin: const EdgeInsets.all(10.0),
             child: PainterPanel(
               controller: _controller,
               drawingBinary: _presenter.value,

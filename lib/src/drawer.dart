@@ -31,14 +31,14 @@ class DigitsDrawer extends StatelessWidget {
           DefaultDrawerHeader(applicationName: APPLICATION_NAME_SHORT),
           ListTile(
             leading: Icon(Icons.cloud, color: iconColor),
-            title: Text('Connections'),
+            title: const Text('Connections'),
             onTap: () async =>
                 showChildScreen(context, DefaultRoutes.CONNECTIONS),
           ),
           Divider(),
           ListTile(
             leading: Icon(Icons.info, color: iconColor),
-            title: Text('About'),
+            title: const Text('About'),
             onTap: () async {
               Navigator.pop(context);
               await showAboutDigitsAppDialog(context);
