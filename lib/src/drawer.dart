@@ -18,7 +18,7 @@ import 'package:sponge_flutter_app_digit_recognition/application_constants.dart'
 import 'package:sponge_flutter_app_digit_recognition/src/about_dialog.dart';
 
 class DigitsDrawer extends StatelessWidget {
-  DigitsDrawer({Key key}) : super(key: key);
+  const DigitsDrawer({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -31,7 +31,7 @@ class DigitsPage extends StatefulWidget {
   final String title;
 
   @override
-  createState() => _DigitsPageState();
+  _DigitsPageState createState() => _DigitsPageState();
 }
 
 class _DigitsPageState extends State<DigitsPage> implements DigitsView {
@@ -87,7 +87,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
 
         return _buildScaffold(
           context,
-          child: CircularProgressIndicator(),
+          child: const CircularProgressIndicator(),
         );
       },
     );
@@ -135,7 +135,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
                 type: NotificationPanelType.error,
               )
             : (_presenter.connected
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : ConnectionNotInitializedWidget(
                     hasConnections: _presenter.hasConnections)),
       ),
@@ -156,7 +156,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
       body: SafeArea(
         child: Center(child: child),
       ),
-      drawer: DigitsDrawer(),
+      drawer: const DigitsDrawer(),
     );
   }
 
@@ -272,7 +272,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
     _presenter.clearDigit();
   }
 
-  _showInfo() async {
+  Future<void> _showInfo() async {
     final ThemeData themeData = Theme.of(context);
     final TextStyle textStyle = themeData.textTheme.bodyText2;
 

@@ -18,7 +18,7 @@ import 'package:pedantic/pedantic.dart';
 import 'package:sponge_flutter_api/sponge_flutter_api.dart';
 import 'package:sponge_flutter_app_digit_recognition/application_constants.dart';
 import 'package:sponge_flutter_app_digit_recognition/logger_configuration.dart';
-import 'package:sponge_flutter_app_digit_recognition/src/digits_widget.dart';
+import 'package:sponge_flutter_app_digit_recognition/src/digits_page.dart';
 import 'package:sponge_flutter_app_digit_recognition/src/drawer.dart';
 
 void main() async {
