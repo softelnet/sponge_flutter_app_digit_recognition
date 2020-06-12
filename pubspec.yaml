@@ -19,7 +19,6 @@ dependencies:
 
   sponge_flutter_api:
     path: ../sponge_flutter_api
-  # TODO Remove after sponge_flutter_api is ready.    
   sponge_client_dart: ^1.16.0
   sponge_grpc_client_dart: ^1.16.0
 dependency_overrides:
