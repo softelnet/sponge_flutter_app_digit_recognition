@@ -1,3 +1,3 @@
-## 0.16.0 (not released yet)
+## 0.16.1 (not released yet)
 
 * The initial release.
