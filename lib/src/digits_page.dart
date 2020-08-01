@@ -98,7 +98,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
     _controller ??= PainterController();
 
     return BlocBuilder<ActionCallBloc, ActionCallState>(
-        bloc: _presenter.actionCallBloc,
+        cubit: _presenter.actionCallBloc,
         builder: (BuildContext context, ActionCallState state) {
           _presenter.state = state;
 
@@ -149,7 +149,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
   }) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: _buildTitle(context),
         actions: _buildAppBarActions(),
         bottom: bottom,
       ),
@@ -157,6 +157,17 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
         child: Center(child: child),
       ),
       drawer: const DigitsDrawer(),
+    );
+  }
+
+    Widget _buildTitle(BuildContext context) {
+    return Tooltip(
+      child: Text(
+        widget.title,
+        softWrap: true,
+        overflow: TextOverflow.visible,
+      ),
+      message: widget.title,
     );
   }
 

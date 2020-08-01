@@ -13,9 +13,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  provider: ^4.0.1
-  flutter_bloc: ^4.0.0
-  logging: ^0.11.3+2
+  provider: ^4.3.1
+  flutter_bloc: ^6.0.1
+  logging: ^0.11.4
 
   sponge_flutter_api:
     path: ../sponge_flutter_api
