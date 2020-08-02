@@ -73,6 +73,8 @@ class DigitsPresenter extends BasePresenter<DigitsViewModel, DigitsView> {
 
         return state;
       });
+  
+  SpongeConnectionState get connectionState => service.connectionBloc.state;
 
   Future<ActionData> getActionData() async =>
       service.spongeService?.getAction(ACTION_NAME);

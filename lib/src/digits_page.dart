@@ -53,7 +53,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
 
     return StreamBuilder<SpongeConnectionState>(
       stream: _presenter.connectionBlocStream,
-      initialData: SpongeConnectionStateConnecting(),
+      initialData: _presenter.connectionState,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var connectionState = snapshot.data;
@@ -160,7 +160,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
     );
   }
 
-    Widget _buildTitle(BuildContext context) {
+  Widget _buildTitle(BuildContext context) {
     return Tooltip(
       child: Text(
         widget.title,
