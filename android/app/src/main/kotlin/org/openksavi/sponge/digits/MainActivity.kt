@@ -1,4 +1,4 @@
-package com.example.sponge_flutter_app_digit_recognition
+package org.openksavi.sponge.digits
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

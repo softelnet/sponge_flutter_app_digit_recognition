@@ -12,5 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const String APPLICATION_NAME = 'Sponge Digit Recognition';
-const String APPLICATION_NAME_SHORT = 'Digit Recognition';
+const String APPLICATION_NAME = 'Sponge Digits';
+
+const bool APP_DEBUG_CONNECTIONS = false;

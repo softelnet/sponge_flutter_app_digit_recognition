@@ -25,6 +25,8 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
   final TextStyle linkStyle =
       themeData.textTheme.bodyText2.copyWith(color: themeData.accentColor);
 
+  var buildNumber = await CommonUtils.getPackageBuildNumber();
+
   await showDefaultAboutAppDialog(
     context,
     contents: RichText(
@@ -62,6 +64,10 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
           TextSpan(
             style: standardTextStyle,
             text: ' project home page.',
+          ),
+          TextSpan(
+            style: standardTextStyle,
+            text: '\n\nBuild number: $buildNumber.',
           ),
         ],
       ),
