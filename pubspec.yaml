@@ -1,6 +1,6 @@
 name: sponge_flutter_app_digit_recognition
 description: Handwritten Digit Recognition - A Sponge Flutter demo app.
-version: 0.16.3+1
+version: 0.16.4+1
 
 environment:
   sdk: ">=2.3.0 <3.0.0"
@@ -38,7 +38,9 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/images/icon.png"
-  image_path_ios: "assets/images/icon_ios.png"  
+  image_path_ios: "assets/images/icon_ios.png"
+  adaptive_icon_background: "#FFE9C382"
+  adaptive_icon_foreground: "assets/images/icon_android.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
