@@ -25,6 +25,8 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
   final TextStyle linkStyle =
       themeData.textTheme.bodyText2.copyWith(color: themeData.accentColor);
 
+  var buildNumber = await CommonUtils.getPackageBuildNumber();
+
   await showDefaultAboutAppDialog(
     context,
     contents: RichText(
@@ -34,7 +36,7 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
           TextSpan(
             style: headerTextStyle,
             text:
-                '\n\nThis is a showcase of a customized Sponge client application in Flutter that calls a Sponge'
+                '\n\nThis is a showcase of a customized Sponge client application build with Flutter that calls a remote Sponge'
                 ' action that recognizes handwritten digits. The app is released under the open-source Apache 2.0 license.',
           ),
           TextSpan(
@@ -62,6 +64,10 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
           TextSpan(
             style: standardTextStyle,
             text: ' project home page.',
+          ),
+          TextSpan(
+            style: standardTextStyle,
+            text: '\n\nBuild number: $buildNumber.',
           ),
         ],
       ),

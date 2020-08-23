@@ -73,7 +73,7 @@ class DigitsPresenter extends BasePresenter<DigitsViewModel, DigitsView> {
 
         return state;
       });
-  
+
   SpongeConnectionState get connectionState => service.connectionBloc.state;
 
   Future<ActionData> getActionData() async =>
@@ -104,7 +104,7 @@ class DigitsPresenter extends BasePresenter<DigitsViewModel, DigitsView> {
   }
 
   String get digitText => resultInfo != null
-      ? (resultInfo.result != null ? resultInfo.result.toString() : '?')
+      ? (resultInfo.result != null ? resultInfo.result.toString() : '😕')
       : ' ';
 
   bool get recognizing => state is ActionCallStateCalling;

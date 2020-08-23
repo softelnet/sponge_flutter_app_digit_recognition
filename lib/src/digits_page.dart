@@ -297,11 +297,15 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
           text: TextSpan(
             children: <TextSpan>[
               TextSpan(
+                style: themeData.textTheme.bodyText1,
+                text: 'Handwritten digits recognition.\n\n',
+              ),
+              TextSpan(
                 style: textStyle,
                 text:
                     'Draw one large digit in the centre of the black square and wait for the recognition.'
                     '\n\nThe recognized digit will be displayed in the green circle.'
-                    '\n\nTouch the circle to clear the drawing.',
+                    '\n\Tap the green circle to clear the digt.',
               ),
             ],
           ),

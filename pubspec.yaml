@@ -1,6 +1,6 @@
 name: sponge_flutter_app_digit_recognition
 description: Handwritten Digit Recognition - A Sponge Flutter demo app.
-version: 0.16.4+1
+version: 0.16.1+1
 
 environment:
   sdk: ">=2.3.0 <3.0.0"
