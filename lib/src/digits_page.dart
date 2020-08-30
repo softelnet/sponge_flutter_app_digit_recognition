@@ -305,7 +305,8 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
                 text:
                     'Draw one large digit in the centre of the black square and wait for the recognition.'
                     '\n\nThe recognized digit will be displayed in the green circle.'
-                    '\n\Tap the green circle to clear the digt.',
+                    '\n\Tap the green circle to clear the digt.'
+                    '\n\nAfter each stroke the remote action call is made and the result is shown in the circle.',
               ),
             ],
           ),
