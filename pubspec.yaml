@@ -3,7 +3,7 @@ description: Handwritten Digit Recognition - A Sponge Flutter demo app.
 version: 0.16.2+2
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.8.0 <3.0.0"
 
 dependencies:
   flutter:
