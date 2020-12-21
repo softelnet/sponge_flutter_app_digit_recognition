@@ -19,8 +19,8 @@ dependencies:
 
   sponge_flutter_api:
     path: ../sponge_flutter_api
-  sponge_client_dart: ^1.16.2
-  sponge_grpc_client_dart: ^1.16.2
+  sponge_client_dart: ^1.16.3
+  sponge_grpc_client_dart: ^1.16.3
 dependency_overrides:
   # Use the local library if possible.
   sponge_client_dart:
