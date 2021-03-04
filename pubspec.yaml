@@ -2,6 +2,8 @@ name: sponge_flutter_app_digit_recognition
 description: Handwritten Digit Recognition - A Sponge Flutter demo app.
 version: 0.16.2+2
 
+publish_to: none
+
 environment:
   sdk: ">=2.8.0 <3.0.0"
 
@@ -47,7 +49,6 @@ flutter_icons:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
