@@ -1,6 +1,6 @@
 name: sponge_flutter_app_digit_recognition
 description: Handwritten Digit Recognition - A Sponge Flutter demo app.
-version: 0.16.2+2
+version: 0.17.0+11
 
 publish_to: none
 
@@ -21,8 +21,8 @@ dependencies:
 
   sponge_flutter_api:
     path: ../sponge_flutter_api
-  sponge_client_dart: ^1.16.3
-  sponge_grpc_client_dart: ^1.16.3
+  sponge_client_dart: ^1.17.0
+  sponge_grpc_client_dart: ^1.17.0
 dependency_overrides:
   # Use the local library if possible.
   sponge_client_dart:
