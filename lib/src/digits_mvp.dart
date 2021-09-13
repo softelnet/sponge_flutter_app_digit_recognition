@@ -64,7 +64,7 @@ class DigitsPresenter extends BasePresenter<DigitsViewModel, DigitsView> {
       viewModel.value ??= DrawingBinaryValue(viewModel.actionMeta.args[0]);
 
   Stream<SpongeConnectionState> get connectionBlocStream =>
-      service.connectionBloc.map((state) {
+      service.connectionBloc.stream.map((state) {
         if (state is SpongeConnectionStateConnecting) {
           reset();
         } else if (state is SpongeConnectionStateConnected) {

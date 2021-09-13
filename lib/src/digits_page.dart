@@ -98,7 +98,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
     _controller ??= PainterController();
 
     return BlocBuilder<ActionCallBloc, ActionCallState>(
-        cubit: _presenter.actionCallBloc,
+        bloc: _presenter.actionCallBloc,
         builder: (BuildContext context, ActionCallState state) {
           _presenter.state = state;
 
@@ -162,12 +162,12 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
 
   Widget _buildTitle(BuildContext context) {
     return Tooltip(
+      message: widget.title,
       child: Text(
         widget.title,
         softWrap: true,
         overflow: TextOverflow.visible,
       ),
-      message: widget.title,
     );
   }
 
@@ -220,6 +220,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
       Expanded(
         child: Center(
           child: InkResponse(
+            onTap: _clear,
             child: CircleAvatar(
               radius: 45,
               backgroundColor: isDarkTheme(context)
@@ -231,7 +232,6 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
                 style: resultTextStyle,
               ),
             ),
-            onTap: _clear,
           ),
         ),
       ),
