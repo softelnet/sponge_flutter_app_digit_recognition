@@ -88,6 +88,9 @@ class SongeDigitRecognitionApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
         brightness: Brightness.dark,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey[900],
+        ),
       ),
       home: child,
       routes: {
