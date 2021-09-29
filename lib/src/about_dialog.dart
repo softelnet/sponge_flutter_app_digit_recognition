@@ -23,7 +23,7 @@ Future<void> showAboutDigitsAppDialog(BuildContext context) async {
   final TextStyle noteTextStyle =
       themeData.textTheme.bodyText2.apply(color: getSecondaryColor(context));
   final TextStyle linkStyle =
-      themeData.textTheme.bodyText2.copyWith(color: themeData.accentColor);
+      themeData.textTheme.bodyText2.copyWith(color: themeData.colorScheme.secondary);
 
   var buildNumber = await CommonUtils.getPackageBuildNumber();
 

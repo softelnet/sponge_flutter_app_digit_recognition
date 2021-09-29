@@ -225,7 +225,7 @@ class _DigitsPageState extends State<DigitsPage> implements DigitsView {
               radius: 45,
               backgroundColor: isDarkTheme(context)
                   ? themeData.buttonColor
-                  : themeData.accentColor,
+                  : themeData.colorScheme.secondary,
               foregroundColor: Colors.white,
               child: Text(
                 _presenter.digitText,
